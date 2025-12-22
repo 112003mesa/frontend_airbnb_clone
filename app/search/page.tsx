@@ -2,10 +2,17 @@
 import { format } from "date-fns";
 import Footer from "../_components/header/Footer";
 import Header from "../_components/header/Header";
-import Map from "../_components/header/Map";
 import { getSearchResult } from "../utils/api";
 import ListingCard from "../_components/header/ListingCard";
 import { ListingCardItem } from "@/app/types/app";
+
+import dynamic from "next/dynamic";
+
+const Map = dynamic(
+  () => import("../_components/header/Map"),
+  { ssr: false }
+);
+
 
 type ListingCardProps = Omit<ListingCardItem, "long" | "lat">;
 
