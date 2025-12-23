@@ -5,14 +5,7 @@ import Header from "../_components/header/Header";
 import { getSearchResult } from "../utils/api";
 import ListingCard from "../_components/header/ListingCard";
 import { ListingCardItem } from "@/app/types/app";
-
-import dynamic from "next/dynamic";
-
-const Map = dynamic(
-  () => import("../_components/header/Map"),
-  { ssr: false }
-);
-
+import MapClient from "../_components/header/MapClient";
 
 type ListingCardProps = Omit<ListingCardItem, "long" | "lat">;
 
@@ -22,7 +15,7 @@ interface Props {
 }
 
 const SearchResult = async ({ searchParams }: Props) => {
-  const search = await searchParams; // فك الـ Promise
+  const search = await searchParams;
   const { location, startDate, endDate, numberOfGuests } = search || {};
 
   let formatedStartDate = "";
@@ -80,7 +73,7 @@ const SearchResult = async ({ searchParams }: Props) => {
               </div>
             </div>
             <div className="hidden xl:inline-flex xl:min-w-[600px]">
-              <Map searchResultData={searchResultData} />
+              <MapClient searchResultData={searchResultData} />
             </div>
           </div>
         </section>
