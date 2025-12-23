@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Banner from "./_components/header/Banner";
 import Explore from "./_components/header/Explore";
 import Footer from "./_components/header/Footer";
