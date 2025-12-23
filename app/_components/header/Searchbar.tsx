@@ -41,37 +41,45 @@ const Searchbar = ({ placeholder }: { placeholder?: string }) => {
                 />
                 <IoIosSearch className="hidden md:inline-flex h-8 w-8 bg-red-400 text-white rounded-full p-2 cursor-pointer md:mx-2" />
             </div>
-            {input && <div className="flex flex-col col-span-3 absolute top-[100%] left-[50%] translate-x-[-50%]">
-                <DateRangePicker 
-                    ranges={[selectionRange]} 
-                    onChange={handleSelect} 
-                    rangeColors={["#FD5861"]}
-                    minDate={new Date()} 
-                />
-                <div className="flex items-center bg-white p-4 border-b">
-                    <h2 className="text-2xl flex-grow font-semibold">Number of Guests</h2>
-                    <FaUserFriends className="h-5" />
-                    <input
-                        type="number"
-                        className="w-12 pl-2 text-lg outline-none text-red-400"
-                        value={numberOfGuests}
-                        min={1}
-                        onChange={(e) => setNumberOfGuests(+e.target.value)}
-                    />
-                </div>
-                <div className="flex items-center p-5 bg-white">
-                    <button
-                        className="flex-grow text-gray-500"
-                        type="button"
-                        onClick={() => setInput("")}
-                    >Cancel</button>
-                    <button
-                        onClick={handleSearch}
-                        className="flex-grow text-red-400"
-                    >
-                        Search
-                    </button>
-                </div>
+            {input && <div className="absolute top-full left-0 w-full sm:left-1/2 sm:w-auto sm:max-w-md md:max-w-lg lg:max-w-xl transform sm:-translate-x-1/2 bg-white shadow-lg rounded-lg z-50 flex flex-col">
+  {/* Date Picker */}
+  <DateRangePicker
+    ranges={[selectionRange]}
+    onChange={handleSelect}
+    rangeColors={["#FD5861"]}
+    minDate={new Date()}
+    className="w-full"
+  />
+
+  {/* Guests Selector */}
+  <div className="flex items-center justify-between p-4 border-b">
+    <h2 className="text-lg sm:text-xl font-semibold flex-grow">Number of Guests</h2>
+    <FaUserFriends className="h-5 sm:h-6 ml-2" />
+    <input
+      type="number"
+      className="w-12 pl-2 text-lg outline-none text-red-400"
+      value={numberOfGuests}
+      min={1}
+      onChange={(e) => setNumberOfGuests(+e.target.value)}
+    />
+  </div>
+
+  {/* Buttons */}
+  <div className="flex flex-col sm:flex-row">
+    <button
+      className="flex-1 text-gray-500 hover:text-gray-700 p-4 border-t sm:border-t-0 sm:border-r"
+      type="button"
+      onClick={() => setInput("")}
+    >
+      Cancel
+    </button>
+    <button
+      onClick={handleSearch}
+      className="flex-1 text-red-400 font-semibold hover:text-red-500 p-4"
+    >
+      Search
+    </button>
+  </div>
             </div>}
         </>
     );

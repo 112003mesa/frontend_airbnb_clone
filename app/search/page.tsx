@@ -48,7 +48,7 @@ const SearchResult = async ({ searchParams }: Props) => {
       <main>
         <section className="flex-grow pt-14">
           <div className="container flex">
-            <div className="pt-14 pr-4">
+            <div className="pr-4">
               <p className="text-xs">
                 300+ Stays - {range} - for {numberOfGuests} guests
               </p>
