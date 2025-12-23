@@ -11,13 +11,11 @@ import MapClient from "../_components/header/MapClient";
 type ListingCardProps = Omit<ListingCardItem, "long" | "lat">;
 
 interface Props {
-  searchParams: Promise<{ [key: string]: string | undefined }>;
-  params?: any;
+  searchParams: { [key: string]: string | undefined };
 }
 
 const SearchResult = async ({ searchParams }: Props) => {
-  const search = await searchParams;
-  const { location, startDate, endDate, numberOfGuests } = search || {};
+  const { location, startDate, endDate, numberOfGuests } = searchParams || {};
 
   let formatedStartDate = "";
   let formatedEndDate = "";
@@ -28,6 +26,7 @@ const SearchResult = async ({ searchParams }: Props) => {
   }
 
   const range = `${formatedStartDate} - ${formatedEndDate}`;
+
   const filters = [
     "Cancellation Flexibility",
     "Type of Place",
@@ -40,7 +39,12 @@ const SearchResult = async ({ searchParams }: Props) => {
 
   return (
     <>
-      <Header placeholder={`${location} | ${range} | ${numberOfGuests} guests`} />
+      <Header
+        placeholder={`${location || "Anywhere"} | ${range || "Any week"} | ${
+          numberOfGuests || "Any"
+        } guests`}
+      />
+
       <main>
         <section className="flex-grow pt-14">
           <div className="container flex">
@@ -48,9 +52,11 @@ const SearchResult = async ({ searchParams }: Props) => {
               <p className="text-xs">
                 300+ Stays - {range} - for {numberOfGuests} guests
               </p>
+
               <h1 className="text-3xl font-semibold mt-2 mb-6">
-                Stays in {location}
+                Stays in {location || "Anywhere"}
               </h1>
+
               <div className="hidden lg:inline-flex whitespace-normal mb-5 space-x-3 text-gray-800">
                 {filters.map((item) => (
                   <button className="filter-btn" key={item} type="button">
@@ -58,8 +64,9 @@ const SearchResult = async ({ searchParams }: Props) => {
                   </button>
                 ))}
               </div>
+
               <div>
-                {searchResultData.map((listing: ListingCardProps) => (
+                {searchResultData?.map((listing: ListingCardProps) => (
                   <ListingCard
                     key={listing.title}
                     img={listing.img}
@@ -73,12 +80,14 @@ const SearchResult = async ({ searchParams }: Props) => {
                 ))}
               </div>
             </div>
+
             <div className="hidden xl:inline-flex xl:min-w-[600px]">
               <MapClient searchResultData={searchResultData} />
             </div>
           </div>
         </section>
       </main>
+
       <Footer />
     </>
   );
