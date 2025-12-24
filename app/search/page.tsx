@@ -10,12 +10,19 @@ import MapClient from "../_components/header/MapClient";
 
 type ListingCardProps = Omit<ListingCardItem, "long" | "lat">;
 
+
 interface Props {
-  searchParams: { [key: string]: string | undefined };
+  searchParams: Promise<{ [key: string]: string | undefined }>;
 }
 
+
 const SearchResult = async ({ searchParams }: Props) => {
-  const { location, startDate, endDate, numberOfGuests } = searchParams || {};
+  const {
+    location,
+    startDate,
+    endDate,
+    numberOfGuests,
+  } = await searchParams;
 
   let formatedStartDate = "";
   let formatedEndDate = "";
